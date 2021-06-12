@@ -99,6 +99,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collider: {fileID: 3430205757423854043}
   moveSpeed: 10
+  _spriteRenderer: {fileID: 0}
+  defaultColor: {r: 1, g: 0.105882354, b: 0.3882353, a: 1}
 --- !u!58 &3430205757423854043
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -135,4 +137,4 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 3
+  m_Constraints: 7

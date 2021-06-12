@@ -49,7 +49,8 @@ public class Tether : MonoBehaviour {
     public void SetEndMarble(Marble target) {
         endMarble = target;
 
-        if (endMarble == null) {
+        if (endMarble == null || endMarble == rootMarble) {
+            endMarble = null;
             return;
         }
 
@@ -57,7 +58,7 @@ public class Tether : MonoBehaviour {
         _lineRenderer.SetPosition(1, endPosition);
     }
 
-    public void Close() {
+    public bool Close() {
         RaycastToEndPosition();
 
         closed = true;
@@ -66,10 +67,11 @@ public class Tether : MonoBehaviour {
 
         if (!endMarble || blockedByLevel) {
             Destroy();
-            return;
+            return false;
         }
         
         rootMarble.PullTowards(endMarble, Destroy);
+        return true;
     }
 
     private void RaycastToEndPosition() {

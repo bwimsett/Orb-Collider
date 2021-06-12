@@ -53,9 +53,13 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\GameManager.cs" />
+     <Compile Include="Assets\Scripts\MovableBlock.cs" />
+     <Compile Include="Assets\Scripts\LinkedMarble.cs" />
      <Compile Include="Assets\Scripts\MouseTracker.cs" />
+     <Compile Include="Assets\Scripts\Level.cs" />
      <Compile Include="Assets\Scripts\ExplodingMarble.cs" />
      <Compile Include="Assets\Scripts\Marble.cs" />
+     <Compile Include="Assets\Scripts\LevelSO.cs" />
      <Compile Include="Assets\Scripts\LevelManager.cs" />
      <Compile Include="Assets\Scripts\Tether.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

@@ -121,7 +121,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 3
+  m_Constraints: 7
 --- !u!114 &1403771772103906017
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,3 +136,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collider: {fileID: 0}
   moveSpeed: 10
+  _spriteRenderer: {fileID: 0}
+  defaultColor: {r: 1, g: 0.99215686, b: 0.6862745, a: 1}

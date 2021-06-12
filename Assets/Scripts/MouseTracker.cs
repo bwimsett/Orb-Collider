@@ -23,16 +23,20 @@ public class MouseTracker : MonoBehaviour {
 
             if (newMarble && newMarble != currentMarble) {
                 if (currentMarble) {
-                    currentMarble.OnMouseExit();
+                    currentMarble.MouseExit();
                 }
 
                 currentMarble = newMarble;
-                currentMarble.OnMouseEnter();
+                currentMarble.MouseEnter();
             }
             
             return;
         }
 
+        if (currentMarble) {
+            currentMarble.MouseExit();
+        }
+        
         currentMarble = null;
     }
 
@@ -42,13 +46,17 @@ public class MouseTracker : MonoBehaviour {
         }
         
         if (currentMarble) {
-            currentMarble.OnMouseDown();
+            currentMarble.MouseDown();
         }
     }
 
     private void OnMouseUp() {
         if (!Input.GetMouseButtonUp(0)) {
             return;
+        }
+
+        if (currentMarble) {
+            currentMarble.MouseUp();
         }
         
         GameManager.levelManager.CloseCurrentTether();

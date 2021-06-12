@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34ef314eae734807a94b09ff8c29de27, type: 3}
+  m_Name: Level 4
+  m_EditorClassIdentifier: 
+  levelPrefab: {fileID: 4369591418389505725, guid: 7047cb2864be1497786dc187c0b6d964, type: 3}
+  tetherCount: 3
