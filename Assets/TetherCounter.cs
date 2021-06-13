@@ -12,8 +12,10 @@ public class TetherCounter : MonoBehaviour {
     public float colorFlashDuration;
     public float colorFlashScale;
     private int currentCount = 0;
-    
-    
+    public AudioSource audioSource;
+    public AudioClip errorClip;
+
+
     public void SetCount(int count) {
         if (count == currentCount) {
             return;
@@ -28,6 +30,7 @@ public class TetherCounter : MonoBehaviour {
         FlashSpriteRenderer(iconSpriteRenderer, true);
         FlashSpriteRenderer(timesSpriteRenderer, true);
         FlashSpriteRenderer(numberSpriteRenderer, true);
+        audioSource.PlayOneShot(errorClip);
     }
 
     private void FlashSpriteRenderer(SpriteRenderer spriteRenderer, bool scale) {

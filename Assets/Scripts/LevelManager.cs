@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 namespace DefaultNamespace {
@@ -11,6 +12,8 @@ namespace DefaultNamespace {
         public Tether currentTether;
         public TetherCounter tetherCounter;
         private int tethersUsed;
+        public AudioSource audioSource;
+        public AudioClip levelCompleteCLip;
         
         public Tether GetTether() {
             if (currentTether) {
@@ -63,9 +66,13 @@ namespace DefaultNamespace {
             }
             
             currentLevel++;
+            
 
             if (currentLevel < levels.Length) {
-                LoadLevel();
+                transform.DOScale(transform.localScale, 0.5f).OnComplete(()=> {
+                    audioSource.PlayOneShot(levelCompleteCLip);
+                    LoadLevel();
+                });
             } else {
                 currentLevel = levels.Length - 1;
                 Destroy(currentLevelGO);
