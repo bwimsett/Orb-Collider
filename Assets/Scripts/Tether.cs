@@ -25,6 +25,8 @@ public class Tether : MonoBehaviour {
             return;
         }
         
+        RefreshLineColors();
+        
         if (endMarble || closed) {
             RaycastToEndPosition();
             return;
@@ -41,7 +43,7 @@ public class Tether : MonoBehaviour {
 
         Vector3 targetPosition = rootMarble.transform.position;
 
-        _lineRenderer.SetPosition(0, targetPosition);
+        _lineRenderer.SetPosition(0, (Vector2)targetPosition);
         
         Update();
     }
@@ -55,7 +57,7 @@ public class Tether : MonoBehaviour {
         }
 
         endPosition = endMarble.transform.position;
-        _lineRenderer.SetPosition(1, endPosition);
+        _lineRenderer.SetPosition(1, (Vector2)endPosition);
     }
 
     public bool Close() {
@@ -66,6 +68,7 @@ public class Tether : MonoBehaviour {
         GameManager.levelManager.currentTether = null;
 
         if (!endMarble || blockedByLevel) {
+            rootMarble.RemoveTether();
             Destroy();
             return false;
         }
@@ -92,7 +95,20 @@ public class Tether : MonoBehaviour {
     }
 
     private void RefreshLineEnd() {
-        _lineRenderer.SetPosition(1, endPosition);
+        _lineRenderer.SetPosition(1, (Vector2)endPosition);
+    }
+
+    private void RefreshLineColors() {
+        if (rootMarble) {
+            _lineRenderer.startColor = rootMarble.defaultColor;
+        }
+
+        if (endMarble) {
+            _lineRenderer.endColor = endMarble.defaultColor;
+        }
+        else {
+            _lineRenderer.endColor = rootMarble.defaultColor;
+        }
     }
 
     private void Destroy() {

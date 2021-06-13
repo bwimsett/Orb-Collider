@@ -9,12 +9,13 @@ namespace DefaultNamespace {
         [SerializeField] private Collider2D collider;
         private Tether tether;
         public float moveSpeed;
-        private Tween currentTween;
+        private Tween currentTween, growShrinkTween;
         protected bool moving;
         public Level level;
         [SerializeField] protected SpriteRenderer _spriteRenderer;
-        [SerializeField] protected Color defaultColor;
-
+        [SerializeField] public Color defaultColor;
+        private bool mouseOver;
+        
         void Awake() {
             collider = GetComponent<CircleCollider2D>();
             _spriteRenderer = GetComponent<SpriteRenderer>();
@@ -23,6 +24,13 @@ namespace DefaultNamespace {
 
         public void MouseEnter() {
             tether = GameManager.levelManager.currentTether;
+            mouseOver = true;
+            
+            // Animate grow and shrink on mouse enter
+            if (!tether) {
+                growShrinkTween?.Kill();
+                growShrinkTween = transform.DOScale(new Vector3(1.15f, 1.15f), 0.1f);
+            }
 
             if (tether && tether.rootMarble) {
                 tether.SetEndMarble(this);
@@ -30,15 +38,32 @@ namespace DefaultNamespace {
         }
 
         public void MouseExit() {
+            mouseOver = false;
+            
+            if (!tether) {
+                growShrinkTween?.Kill();
+                growShrinkTween = transform.DOScale(new Vector3(1, 1, 1), 0.1f);
+            }
+            
             if (tether && tether.endMarble == this) {
                 tether.SetEndMarble(null);
             }
         }
 
+        public void RemoveTether() {
+            if (!mouseOver) {
+                growShrinkTween?.Kill();
+                growShrinkTween = transform.DOScale(new Vector3(1, 1, 1), 0.1f);
+            }
+
+            tether = null;
+        }
+
         public virtual void MouseDown() {
-            Tether tether = GameManager.levelManager.GetTether();
+            tether = GameManager.levelManager.GetTether();
 
             if (!tether) {
+                GameManager.levelManager.tetherCounter.Flash();
                 return;
             }
             
@@ -76,6 +101,9 @@ namespace DefaultNamespace {
             Stop();
             OnDestroy();
             Destroy(gameObject);
+            _spriteRenderer.DOFade(0, 0.3f).OnComplete(()=>Destroy(gameObject));
+            GameManager.gameManager.ShakeCamera();
+            GameManager.levelManager.CreateExplosion(this);
             level.RemoveMarble(this);
         }
 
@@ -92,6 +120,8 @@ namespace DefaultNamespace {
                 moving = false;
                 onComplete.Invoke();
             });
+            
+            RemoveTether();
         }
     }
 }
