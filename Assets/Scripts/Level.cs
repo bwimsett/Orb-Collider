@@ -6,8 +6,9 @@ using UnityEngine;
 public class Level : MonoBehaviour {
     
     public Marble[] marbles;
+    public LevelSO levelSo;
     private int marbleCount;
-
+    
     void Awake() {
         marbleCount = marbles.Length;
         foreach (Marble marble in marbles) {
@@ -30,7 +31,7 @@ public class Level : MonoBehaviour {
     }
 
     private void CompleteLevel() {
-        GameManager.levelManager.CompleteLevel();
+        GameManager.levelManager.CompleteLevel(this);
     }
 
 }

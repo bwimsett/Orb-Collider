@@ -1,5 +1,3 @@
-using System.Security.Cryptography;
-using TMPro;
 using UnityEngine;
 
 namespace DefaultNamespace {
@@ -13,11 +11,6 @@ namespace DefaultNamespace {
         public Tether currentTether;
         public TetherCounter tetherCounter;
         private int tethersUsed;
-
-        void Awake() {
-            currentLevel = 0;
-            LoadLevel();
-        }
         
         public Tether GetTether() {
             if (currentTether) {
@@ -64,13 +57,19 @@ namespace DefaultNamespace {
             return tethersUsed < levels[currentLevel].tetherCount;
         }
         
-        public void CompleteLevel() {
+        public void CompleteLevel(Level level) {
+            if (level.levelSo != levels[currentLevel]) {
+                return;
+            }
+            
             currentLevel++;
 
             if (currentLevel < levels.Length) {
                 LoadLevel();
             } else {
                 currentLevel = levels.Length - 1;
+                Destroy(currentLevelGO);
+                GameManager.guiCover.DisplayEndScreen();
             }
         }
 
@@ -80,8 +79,14 @@ namespace DefaultNamespace {
             }
 
             currentLevelGO = Instantiate(levels[currentLevel].levelPrefab, levelArea);
+            currentLevelGO.GetComponent<Level>().levelSo = levels[currentLevel];
             tethersUsed = 0;
             RefreshTetherCountDisplay();
+        }
+
+        public void StartGame() {
+            currentLevel = 0;
+            LoadLevel();
         }
         
     }

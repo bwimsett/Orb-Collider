@@ -6,6 +6,7 @@ namespace DefaultNamespace {
         
         public static LevelManager levelManager;
         public static GameManager gameManager;
+        public static GUICover guiCover;
         public static Camera mainCamera;
 
         public float cameraShakeDuration, cameraShakeStrength, cameraShakeRandomness;
@@ -15,6 +16,7 @@ namespace DefaultNamespace {
             GameManager.levelManager = GetComponent<LevelManager>();
             GameManager.gameManager = this;
             GameManager.mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
+            GameManager.guiCover = GameObject.Find("GUI Cover").GetComponent<GUICover>();
         }
 
         public void ShakeCamera() {
